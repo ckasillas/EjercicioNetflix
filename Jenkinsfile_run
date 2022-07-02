@@ -8,35 +8,35 @@ pipeline {
         stage('Zuul') {
             steps {
                 sh 'docker stop zuul || true'
-                sh 'docker run -d --rm --name zuul -e HOST_IP_ADDRESS=192.168.1.133 -p 8000:8080 ingjavierr/zuul:latest'
+                sh 'docker run -d --rm --name zuul -e HOST_IP_ADDRESS=172.22.144.1 -p 8000:8080 ingjavierr/zuul:latest'
             }
         }
 
         stage('Eureka') {
             steps {
                 sh 'docker stop eureka || true'
-                sh 'docker run -d --rm --name eureka -e HOST_IP_ADDRESS=192.168.1.133 -p 8761:8761 ingjavierr/eureka:latest'
+                sh 'docker run -d --rm --name eureka -e HOST_IP_ADDRESS=172.22.144.1 -p 8761:8761 ingjavierr/eureka:latest'
             }
         }
         
         stage('Ordenes') {
             steps {
                 sh 'docker stop ordenes-service || true'
-                sh 'docker run -d --rm --name ordenes-service -e SPRING_PROFILES_ACTIVE=dev -e HOST_IP_ADDRESS=192.168.1.133 -p 8020:8020 ingjavierr/ordenes-service:latest'
+                sh 'docker run -d --rm --name ordenes-service -e SPRING_PROFILES_ACTIVE=dev -e HOST_IP_ADDRESS=172.22.144.1 -p 8020:8020 ingjavierr/ordenes-service:latest'
             }
         }
 
         stage('Productos') {
             steps {
                 sh 'docker stop productos-service || true'
-                sh 'docker run -d --rm --name productos-service -e SPRING_PROFILES_ACTIVE=dev -e HOST_IP_ADDRESS=192.168.1.133 -p 8030:8030 ingjavierr/productos-service:latest'
+                sh 'docker run -d --rm --name productos-service -e SPRING_PROFILES_ACTIVE=dev -e HOST_IP_ADDRESS=172.22.144.1 -p 8030:8030 ingjavierr/productos-service:latest'
             }
         }
 
         stage('Usuarios') {
             steps {
                 sh 'docker stop usuarios-service || true'
-                sh 'docker run -d --rm --name usuarios-service -e SPRING_PROFILES_ACTIVE=dev -e HOST_IP_ADDRESS=192.168.1.133 -p 8010:8010 ingjavierr/usuarios-service:latest'
+                sh 'docker run -d --rm --name usuarios-service -e SPRING_PROFILES_ACTIVE=dev -e HOST_IP_ADDRESS=172.22.144.1 -p 8010:8010 ingjavierr/usuarios-service:latest'
             }
         }
     }
